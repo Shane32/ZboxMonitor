@@ -28,7 +28,7 @@ jobs:
         run: ./test200.ps1
       - name: Check azure CDN
         env:
-          URL_TO_CHECK: https://www.dummyurl123.com
+          URL_TO_CHECK: https://www.zbox.com
         shell: powershell
         run: ./test200.ps1
       - name: Check redirect
