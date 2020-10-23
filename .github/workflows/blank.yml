@@ -22,7 +22,8 @@ jobs:
       matrix:
         url:
           - https://zbox2.blob.core.windows.net/static/index.html
-          - https://www.dummyurl123.com/
+          - https://www.zbox.com
+          - http://zbox.com
       max-parallel: 1
     steps:
       - uses: actions/checkout@v2
@@ -31,6 +32,18 @@ jobs:
           URL_TO_CHECK: ${{ matrix.url }}
         shell: powershell
         run: ./test200.ps1
+
+  test-graphql:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Check homepage
+        env:
+          URL_TO_CHECK: https://api.zbox.com/api/graphql
+          QUERY_TO_CHECK: |
+            {"query":"{ v1 { categories(where: [{path: \"ShowOnHomePage\", comparison: equal, value: \"true\"}]) { description displayOrder id metaDescription metaKeywords metaTitle name parentCategoryId picture { altAttribute id mimeType seoFilename size thumbnail(size: 100) { size url __typename } titleAttribute __typename } showOnHomePage __typename } __typename } }","variables":null}
+        shell: powershell
+        run: ./testgraphql.ps1
 
   # This workflow contains a single job called "build"
   test-site:
