@@ -1,9 +1,9 @@
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 
-"--- Testing $(Env:URL_TO_CHECK) ---"
+"--- Testing $($Env:URL_TO_CHECK) ---"
 $response5 = Invoke-WebRequest -Uri $Env:URL_TO_CHECK -Method Get -UseBasicParsing
 $response5
-"-----------------------------------"
+"------------------------------------"
 if (!$response5 -or !$response5.StatusCode -eq 200) {
     $BodyTemplate = @"
         {
