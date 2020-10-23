@@ -1,4 +1,5 @@
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+$progressPreference = "silentlyContinue"
 
 "--- Testing $($Env:URL_TO_CHECK) ---"
 $response5 = Invoke-WebRequest -Uri $Env:URL_TO_CHECK -Method Get -UseBasicParsing
