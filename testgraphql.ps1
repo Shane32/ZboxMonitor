@@ -14,7 +14,7 @@ $response5
 if (!$response5 -or $response5.errors) {
     $BodyTemplate = @"
         {
-            "channel": "#software",
+            "channel": "$($Env:SLACK_CHANNEL_NAME)",
             "username": "Azure Uptime Bot",
             "text": "$($Env:URL_TO_CHECK) is currently offline retrieving $($Env:QUERY_DESC); not returning graphql query data",
             "icon_emoji":":bangbang:"
