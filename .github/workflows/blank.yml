@@ -41,7 +41,7 @@ jobs:
         env:
           URL_TO_CHECK: https://api.zbox.com/api/graphql
           QUERY_TO_CHECK: |
-            {"query":"{ v1 { categories(where: [{path: \"ShowOnHomePage\", comparison: equal, value: \"true\"}]) { description displayOrder id metaDescription metaKeywords metaTitle name parentCategoryId picture { altAttribute id mimeType seoFilename size thumbnail(size: 100) { size url __typename } titleAttribute __typename } showOnHomePage __typename } __typename } }","variables":null}
+            {"query":"{ v1a { categories(where: [{path: \"ShowOnHomePage\", comparison: equal, value: \"true\"}]) { description displayOrder id metaDescription metaKeywords metaTitle name parentCategoryId picture { altAttribute id mimeType seoFilename size thumbnail(size: 100) { size url __typename } titleAttribute __typename } showOnHomePage __typename } __typename } }","variables":null}
         shell: powershell
         run: ./testgraphql.ps1
 
