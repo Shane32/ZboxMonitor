@@ -23,6 +23,7 @@ jobs:
         url:
           - https://zbox2.blob.core.windows.net/static/index.html
           - https://www.dummyurl123.com/
+      max-parallel: 1
     steps:
       - uses: actions/checkout@v2
       - name: Check url ${{ matrix.url }}
