@@ -19,17 +19,18 @@ env:
 jobs:
   test-site:
     runs-on: windows-latest
+    defaults:
+      run:
+        shell: powershell
     steps:
       - uses: actions/checkout@v2
       - name: Check azure storage blob
         env:
           URL_TO_CHECK: https://zbox2.blob.core.windows.net/static/index.html
-        shell: powershell
         run: ./test200.ps1
       - name: Check azure CDN
         env:
           URL_TO_CHECK: https://www.zbox.com
-        shell: powershell
         run: ./test200.ps1
       - name: Check redirect
         env:
@@ -42,11 +43,9 @@ jobs:
           QUERY_DESC: homepage category list
           QUERY_TO_CHECK: |
             {"query": "{ v1 { info { version zipCodeTemplate } categories { displayOrder id name seoName parentCategoryId showOnHomePage picture { thumbnail(size:100) { url } } } } }"}
-        shell: powershell
         run: ./testgraphql.ps1
       - name: Check admin site
         env:
           URL_TO_CHECK: https://admin.zbox.com/Admin
-        shell: powershell
         run: ./test200.ps1
 
