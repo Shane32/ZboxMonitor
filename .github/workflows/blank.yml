@@ -26,4 +26,4 @@ jobs:
         run: |
           echo "Add other actions to build, test, and deploy your project."
           dir
-          runme.ps1
+          ./runme.ps1
