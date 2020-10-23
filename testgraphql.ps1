@@ -7,7 +7,7 @@ $ErrorActionPreference = "Continue"
 $response5 = Invoke-RestMethod -Uri $Env:URL_TO_CHECK -Method Post -Body $Env:QUERY_TO_CHECK -ContentType 'application/json'
 $response5
 "------------------------------------"
-if (!$response2 -or $response2.errors) {
+if (!$response5 -or $response5.errors) {
     $BodyTemplate = @"
         {
             "channel": "#software",
