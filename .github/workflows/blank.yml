@@ -16,49 +16,30 @@ env:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  test-url:
+  test-site:
     runs-on: windows-latest
-    strategy:
-      matrix:
-        url:
-          - https://zbox2.blob.core.windows.net/static/index.html
-          - https://www.zbox.com
-          - http://zbox.com
-      max-parallel: 1
     steps:
       - uses: actions/checkout@v2
-      - name: Check url ${{ matrix.url }}
+      - name: Check azure storage blob
         env:
-          URL_TO_CHECK: ${{ matrix.url }}
+          URL_TO_CHECK: https://zbox2.blob.core.windows.net/static/index.html
         shell: powershell
         run: ./test200.ps1
-
-  test-graphql:
-    runs-on: windows-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Check homepage
+      - name: Check azure CDN
+        env:
+          URL_TO_CHECK: https://www.zbox.com
+        shell: powershell
+        run: ./test200.ps1
+      - name: Check redirect
+        env:
+          URL_TO_CHECK: http://zbox.com
+        shell: powershell
+        run: ./test200.ps1
+      - name: Check retrieving homepage category list
         env:
           URL_TO_CHECK: https://api.zbox.com/api/graphql
+          QUERY_DESC: homepage category list
           QUERY_TO_CHECK: |
-            {"query":"{ v1a { categories(where: [{path: \"ShowOnHomePage\", comparison: equal, value: \"true\"}]) { description displayOrder id metaDescription metaKeywords metaTitle name parentCategoryId picture { altAttribute id mimeType seoFilename size thumbnail(size: 100) { size url __typename } titleAttribute __typename } showOnHomePage __typename } __typename } }","variables":null}
+            { v1 { info { version zipCodeTemplate } categories { displayOrder id name seoName parentCategoryId showOnHomePage picture { thumbnail(size:100) { url } } } } }
         shell: powershell
         run: ./testgraphql.ps1
-
-  # This workflow contains a single job called "build"
-  test-site:
-    # The type of runner that the job will run on
-    runs-on: windows-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
-
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        shell: powershell
-        run: |
-          echo "Add other actions to build, test, and deploy your project."
-          dir
-          ./runme.ps1
