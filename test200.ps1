@@ -5,7 +5,7 @@ $ErrorActionPreference = "Continue"
 "--- Testing $($Env:URL_TO_CHECK) ---"
 $stopwatch = [System.Diagnostics.Stopwatch]::StartNew()
 $response5 = Invoke-WebRequest -Uri $Env:URL_TO_CHECK -Method Get -UseBasicParsing
-"--- Answer in $($stopwatch.ElapsedMilliseconds) ---"
+"--- Answer in $($stopwatch.ElapsedMilliseconds)ms ---"
 $response5
 "------------------------------------"
 if (!$response5 -or !$response5.StatusCode -eq 200) {
