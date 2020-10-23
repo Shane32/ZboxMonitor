@@ -24,6 +24,6 @@ jobs:
       - name: Run a multi-line script
         shell: powershell
         run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+          echo "Add other actions to build, test, and deploy your project."
+          dir
           runme.ps1
