@@ -43,3 +43,9 @@ jobs:
             {"query": "{ v1 { info { version zipCodeTemplate } categories { displayOrder id name seoName parentCategoryId showOnHomePage picture { thumbnail(size:100) { url } } } } }"}
         shell: powershell
         run: ./testgraphql.ps1
+      - name: Check admin site
+        env:
+          URL_TO_CHECK: https://admin.zbox.com/Admin
+        shell: powershell
+        run: ./test200.ps1
+
