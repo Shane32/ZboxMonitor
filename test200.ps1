@@ -11,7 +11,7 @@ $response5
 if (!$response5 -or !$response5.StatusCode -eq 200) {
     $BodyTemplate = @"
         {
-            "channel": "#software",
+            "channel": "$($Env:SLACK_CHANNEL_NAME)",
             "username": "Azure Uptime Bot",
             "text": "$($Env:URL_TO_CHECK) is currently offline; not returning 200 status code",
             "icon_emoji":":bangbang:"
