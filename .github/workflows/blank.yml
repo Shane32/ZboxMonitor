@@ -7,9 +7,30 @@ name: Run task
 on:
   schedule:
     - cron: "*/5 * * * *"
+  push:
+    branches:
+      - main
+
+env:
+  SLACK_CHANNEL_URI: ${{ secrets.SLACK_CHANNEL_URI }}
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
+  test-url:
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        url:
+          - https://zbox2.blob.core.windows.net/static/index.html
+          - https://www.dummyurl123.com/
+    steps:
+      - uses: actions/checkout@v2
+      - name: Check url ${{ matrix.url }}
+        env:
+          URL_TO_CHECK: ${{ matrix.url }}
+        shell: powershell
+        run: ./test200.ps1
+
   # This workflow contains a single job called "build"
   test-site:
     # The type of runner that the job will run on
@@ -20,6 +41,8 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
+      - name: Check 
+      - run: 
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
         shell: powershell
